@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  eureka-server:
+    build: ./eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservices-network
+
+  config-server:
+    build: ./config-server
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eureka-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=native
+    networks:
+      - microservices-network
+
+  keynote-service:
+    build: ./keynote-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - config-server
+      - eureka-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservices-network
+
+  conference-service:
+    build: ./conference-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - config-server
+      - eureka-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservices-network
+
+  gateway-service:
+    build: ./gateway-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - config-server
+      - eureka-server
+      - keynote-service
+      - conference-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=default
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:
+    driver: bridge

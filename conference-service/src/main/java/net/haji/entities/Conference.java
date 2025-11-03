@@ -1,17 +1,13 @@
 package net.haji.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString @Builder
 public class Conference {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

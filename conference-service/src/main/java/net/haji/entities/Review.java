@@ -1,16 +1,12 @@
 package net.haji.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@AllArgsConstructor @NoArgsConstructor @Getter @Setter @ToString @Builder
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
